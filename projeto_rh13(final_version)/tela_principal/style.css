@@ -1,0 +1,173 @@
+/* =========================== */
+/* Reset e estilos básicos */
+/* =========================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* =========================== */
+/* Cabeçalho */
+/* =========================== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-image: linear-gradient(to left, #1E545D, #FFFF);
+  border-bottom: 1px solid #ddd;
+}
+
+.logo { 
+  display: flex;
+  align-items: center;
+
+}
+
+.logo img {
+  margin-right: 8px;
+}
+
+.logo span {
+  color: #ff6600;
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #e0e0e0f0;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav ul li a:hover {
+  color: #ff6600;
+}
+
+.menu-icon {
+  display: none;
+}
+
+/* =========================== */
+/* Conteúdo principal */
+/* =========================== */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 40px;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  gap: 50px;
+  align-items: center;
+}
+
+.text {
+  flex: 1;
+  min-width: 300px;
+}
+
+.text h1 {
+  font-size: 2.8em;
+  margin-bottom: 20px;
+}
+
+.text p {
+  font-size: 1.2em;
+  margin-bottom: 25px;
+}
+
+.buttons button {
+  padding: 15px 30px;
+  font-size: 1em;
+  margin-right: 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cadastre {
+  background-color: #ff6600;
+  color: #fff;
+}
+
+.cadastre:hover {
+  background-color: #e05500;
+}
+
+.login {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.login:hover {
+  background-color: #cfcfcf;
+}
+
+.image img {
+  width: 100%;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+
+/* =========================== */
+/* Rodapé */
+/* =========================== */
+.footer {
+  background-color: #ff6600;
+  text-align: center;
+  padding: 25px 10px;
+  border-top: 1px solid #ff6600;
+  margin-top: 45px;
+}
+
+.footer p {
+  margin: 5px 0;
+  color:  #fff;
+  font-size: 0.95em;
+}
+
+/* =========================== */
+/* Responsividade */
+/* =========================== */
+@media (max-width: 768px) {
+  nav ul {
+    display: none;
+  }
+
+  .menu-icon {
+    display: block;
+    font-size: 1.8em;
+    cursor: pointer;
+  }
+
+  .content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .buttons button {
+    margin: 10px 5px;
+  }
+}

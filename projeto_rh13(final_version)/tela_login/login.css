@@ -1,0 +1,62 @@
+/* Reset básico */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #f8f9fa, #e9ecef);
+}
+
+/* Cores principais */
+    :root {
+      --laranja: #F37328;
+      --cinza-claro: #e0e0e0;
+      --cinza-escuro: #424242;
+      --azul-escuro: #0d47a1;
+    }
+
+/* Header */
+.header {
+  background-image: linear-gradient( to left, #1E545D, #FFFF);
+  color: white;
+}
+
+.logo {
+  height: 55px;
+}
+
+/* Área principal */
+.main-container {
+  height: calc(100vh - 120px); /* Considera header e footer */
+  background-color: transparent;
+}
+
+.login-box {
+  background-color: #fff;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Rodapé */
+.footer {
+  background-color: #F37328;
+  color: #fff;
+}
+
+ .btn-warning {
+      background-color: var(--laranja);
+      border: none;
+      color: #FFFF;
+    }
+
+     .btn-warning:hover {
+      background-color: #ef6c00;
+    }
+
+    .btn-success {
+      background-color: #F37328;
+    }
+
+    .btn-success:hover {
+      background-color: #ef6c00;  
+    }

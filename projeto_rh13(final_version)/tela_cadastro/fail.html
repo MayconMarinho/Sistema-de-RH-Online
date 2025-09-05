@@ -1,0 +1,107 @@
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro Concluído</title>
+  <style>
+    body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f2f2f2;
+  }
+  
+  /* Modal estilo */
+  .modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(30, 84, 93, 0.8); /* sobreposição azul petróleo com transparência */
+  }
+  
+  .modal-content {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-content h2 {
+    color: #1e545d;
+    margin-bottom: 20px;
+  }
+  
+  .modal-content p {
+    color: #333;
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+  
+  .etapas {
+    color: #ff6600;
+    font-size: 1.1em;
+    margin: 15px 0;
+  }
+  
+  /* Botão */
+  #btnIniciarTestes {
+    background-color: #ff6600;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 6px;
+    margin-top: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-continuar {
+    background-color: #f37328;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+  }
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+  </style>
+</head>
+<body>
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <h2>❌ Erro ao enviar dados</h2>
+      <p>Ocorreu um erro ao enviar os dados.</p>
+      <p><strong>Por favor, tente novamente!</strong></p>
+      
+      
+      <button class="btn-continuar"><a href="http://localhost:3000/cadastro/cadastro.html">Voltar</a></button>
+    </div>
+
+  <script>
+    // Mostra o modal automaticamente ao carregar a página
+window.onload = () => {
+    const modal = document.getElementById('modal');
+    modal.style.display = 'flex';
+  };
+  
+  </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+http://localhost:3000/cadastro/cadastro.html
+
+http://localhost:3000/admin/admin.html
+
+http://localhost:3000/login/login.html
+
+http://localhost:3000/portfolio/portfolio.html
+
+http://localhost:3000/principal/principal.html
+
+http://localhost:3000/empresa/empresa.html
+
+
+
+

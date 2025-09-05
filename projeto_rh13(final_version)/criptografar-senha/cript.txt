@@ -1,0 +1,3 @@
+cd criptografar-senha
+
+node criptografar.js

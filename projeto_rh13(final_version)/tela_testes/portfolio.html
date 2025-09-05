@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ReisOffice - Testes</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <video controls autoplay muted loop playsinline id="video-background">
+      <source src="./img.pnj/Vídeo.mp4.mp4" type="video/mp4" />
+    </video>
+    <div class="overlay-video"></div>
+    <div class="container">
+      <header class="cabecalho">
+        <div class="logo-container">
+          <img
+            src="./img.pnj/_logo-reisoffice.webp"
+            alt="Logotipo ReisOffice"
+          />
+        </div>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+        <label for="menu-toggle" class="menu-icon">&#9776;</label>
+        <nav class="menu">
+          <a href="http://localhost:3000/principal/principal.html
+">Pagina inicial</a>
+        </nav>
+      </header>
+      <main class="principal">
+        <div class="caixa-testes">
+          <video
+            id="video-testes"
+            class="video-logo"
+            src="./img.pnj/videologo.mp4.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            poster="./img.pnj/_logo-reisoffice.webp"
+          ></video>
+          <h2>TESTES</h2>
+          <button onclick="abrirModal('portugues')">PORTUGUÊS</button>
+<button onclick="abrirModal('logica')">LÓGICA</button>
+<button onclick="abrirModal('ingles')">INGLÊS</button>
+
+        </div>
+      </main>
+      <footer class="rodape" tabindex="-1">
+        <div class="linha-topo"></div>
+        <p class="rodape-msg">&copy; 2025 ReisOffice — Imprimindo soluções.</p>
+      </footer>
+
+      <!-- Modal de confirmação e CPF -->
+<div id="modalCPF" class="modal" style="display:none;">
+  <div class="modal-content">
+    <h3>Deseja iniciar o teste?</h3>
+    <p>Digite seu CPF para identificação:</p>
+    <input type="text" id="cpfInput" placeholder="Digite seu CPF" />
+    <div class="botoes-modal">
+      <button onclick="confirmarCPF()">Confirmar</button>
+      <button onclick="fecharModal()">Cancelar</button>
+    </div>
+    <p id="erroCPF" style="color:red;"></p>
+  </div>
+</div>
+
+    </div>
+
+    <script>
+  // Aguarda que qualquer tecla seja pressionada no campo de CPF
+  document.addEventListener('input', function (event) {
+    const input = event.target;
+    if (input.id === 'cpfInput') {
+      input.value = input.value.replace(/\D/g, ''); // Só números
+      
+      // Limita a 11 dígitos
+      if (input.value.length > 11) {
+        input.value = input.value.slice(0, 11);
+      }
+    }
+  });
+</script>
+
+    <script>
+let tipoSelecionado = ''; // Armazena qual tipo de teste foi clicado
+
+function abrirModal(tipo) {
+  tipoSelecionado = tipo; // Salva o tipo (port/log/ing)
+  document.getElementById('modalCPF').style.display = 'flex';
+}
+
+function fecharModal() {
+  document.getElementById('modalCPF').style.display = 'none';
+  document.getElementById('cpfInput').value = '';
+  document.getElementById('erroCPF').textContent = '';
+}
+
+function confirmarCPF() {
+  const cpf = document.getElementById('cpfInput').value;
+
+  if (!cpf) {
+    document.getElementById('erroCPF').textContent = 'Por favor, digite o CPF.';
+    return;
+  }
+
+  // Verifica se o CPF existe
+  fetch(`/candidatos/verificar?cpf=${cpf}`)
+    .then(res => res.json())
+    .then(data => {
+      if (!data.existe) {
+        document.getElementById('erroCPF').textContent = 'CPF não cadastrado.';
+        return;
+      }
+
+      // Verifica se o candidato já respondeu o teste
+      fetch(`/candidatos/ja-fez-teste?cpf=${cpf}&grupo=${tipoSelecionado}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.jaFez) {
+            document.getElementById('erroCPF').textContent = 'Você já respondeu esse teste.';
+          } else {
+            localStorage.setItem('cpfUsuario', cpf); // Salva o CPF
+            window.location.href = `/portfolio/questao.html?grupo=${tipoSelecionado}`;
+          }
+        })
+        .catch(err => {
+          console.error('Erro ao verificar se já fez o teste:', err);
+          document.getElementById('erroCPF').textContent = 'Erro ao verificar o teste.';
+        });
+    })
+    .catch(error => {
+      console.error('Erro ao verificar CPF:', error);
+      document.getElementById('erroCPF').textContent = 'Erro ao verificar CPF.';
+    });
+}
+
+</script>
+    <script>
+      function startTest(grupo) {
+        window.location.href = "/portfolio/questao.html?grupo=" + grupo;
+
+      }
+    </script>
+  </body>
+</html>

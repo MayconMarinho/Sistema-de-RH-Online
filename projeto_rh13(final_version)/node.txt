@@ -1,0 +1,2 @@
+npm install express mysql2 multer body-parser path
+ CMD

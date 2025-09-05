@@ -1,0 +1,41 @@
+USE rh_reis;
+CREATE TABLE candidatos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    data_nasci DATE NOT NULL, 
+    genero VARCHAR(20) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    telefone VARCHAR(15) NOT NULL,
+    cpf VARCHAR(14) UNIQUE NOT NULL,
+    logradouro VARCHAR(150) NOT NULL,
+    numero VARCHAR(10) NOT NULL,
+    bairro VARCHAR(100) NOT NULL,
+    municipio VARCHAR(100) NOT NULL,
+    estado VARCHAR(20) NOT NULL,
+    complemento VARCHAR(100),
+    curso VARCHAR(150) NOT NULL,
+    situacao_curso ENUM('Concluído', 'Não concluído', 'Cursando') NOT NULL,
+    data_conclusao DATE NOT NULL,
+    cargo_desejado VARCHAR(100) NOT NULL,
+    pretensao_salarial DECIMAL(10,2) NOT NULL,
+    disponibilidade VARCHAR(30) NOT NULL,
+    soft_skills TEXT,
+    hard_skills TEXT,
+    sobre_voce TEXT,
+    curriculo VARCHAR(255) NOT NULL,
+    rg VARCHAR(255) NOT NULL,
+    comprovante_endereco VARCHAR(255) NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+use rh_reis;
+CREATE TABLE cadastroadmin (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  senha VARCHAR(255) NOT NULL
+);
+
+use rh_reis;
+INSERT INTO cadastroadmin (nome, email, senha)
+VALUES ('admin', 'admin@gmail.com', '$2b$10$pm0ghbYMxyE.iQKmFrzYI.1D01yAQrtoqDAeG.K3Pl6IHE.S8AnZ2');

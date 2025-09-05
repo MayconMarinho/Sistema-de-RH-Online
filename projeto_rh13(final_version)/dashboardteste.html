@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard RH - Reis Office</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #f7f9fa;
+      font-family: Arial, sans-serif;
+    }
+    .card {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
+    .chart-container {
+      padding: 20px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    h3 {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+    <h1 class="text-center mb-4">Dashboard RH - Reis Office</h1>
+
+    <div class="row text-center mb-4">
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card p-3">
+          <h5>Total de Candidatos</h5>
+          <h2>87</h2>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card p-3">
+          <h5>Salário Médio Pretendido</h5>
+          <h2>R$ 2.750</h2>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card p-3">
+          <h5>Com Documentos OK</h5>
+          <h2>81</h2>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 mb-3">
+        <div class="card p-3">
+          <h5>Municípios Atendidos</h5>
+          <h2>12</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="chart-container">
+          <h3 class="text-center">Cargos Pretendidos</h3>
+          <canvas id="cargosChart"></canvas>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="chart-container">
+          <h3 class="text-center">Disponibilidade</h3>
+          <canvas id="disponibilidadeChart"></canvas>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="chart-container">
+          <h3 class="text-center">Hard Skills</h3>
+          <canvas id="hardSkillsChart"></canvas>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="chart-container">
+          <h3 class="text-center">Candidatos por Município</h3>
+          <canvas id="municipioChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Gráfico de Pizza - Cargos Pretendidos
+    new Chart(document.getElementById('cargosChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Assistente Administrativo', 'Designer', 'TI', 'Financeiro'],
+        datasets: [{
+          data: [30, 20, 25, 12],
+          backgroundColor: ['#f44336', '#2196f3', '#4caf50', '#ff9800']
+        }]
+      }
+    });
+
+    // Gráfico de Barras - Disponibilidade
+    new Chart(document.getElementById('disponibilidadeChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Manhã', 'Tarde', 'Integral', 'Home Office'],
+        datasets: [{
+          label: 'Candidatos',
+          data: [15, 18, 30, 24],
+          backgroundColor: '#3f51b5'
+        }]
+      },
+      options: { scales: { y: { beginAtZero: true } } }
+    });
+
+    // Gráfico de Barras - Hard Skills
+    new Chart(document.getElementById('hardSkillsChart'), {
+      type: 'bar',
+      data: {
+        labels: ['Excel', 'HTML', 'Photoshop', 'Inglês'],
+        datasets: [{
+          label: 'Candidatos',
+          data: [35, 20, 15, 17],
+          backgroundColor: '#009688'
+        }]
+      },
+      options: { scales: { y: { beginAtZero: true } } }
+    });
+
+    // Gráfico de Barras - Municípios
+    new Chart(document.getElementById('municipioChart'), {
+      type: 'bar',
+      data: {
+        labels: ['São Paulo', 'Guarulhos', 'Osasco', 'Campinas'],
+        datasets: [{
+          label: 'Candidatos',
+          data: [20, 18, 15, 10],
+          backgroundColor: '#795548'
+        }]
+      },
+      options: { scales: { y: { beginAtZero: true } } }
+    });
+  </script>
+</body>
+</html>

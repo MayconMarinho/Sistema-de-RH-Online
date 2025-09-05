@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro - Banco de Talentos</title>
+  <!-- Importa o CSS do formulário -->
+  <link rel="stylesheet" href="cadastro.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="shortcut icon" href="icone.png"/>
+</head>
+<body>
+  <!-- Barra de navegação superior -->
+  <div class="navbar">
+<a class="navbar-brand" href="http://localhost:3000/principal/principal.html">
+        <img src="logo-reisoffice-novo.png" alt="Logo da Reis Office" style="height: 50px;">
+      </a>    <div class="etapas">
+      <span id="etapaTexto">Etapa 1 de 2</span>
+      <!-- Barra de progresso visual -->
+      <div class="barra-progresso">
+        <div class="progresso" id="progresso1"></div>
+        <div class="progresso" id="progresso2"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Container principal do formulário -->
+  <div class="container">
+    <!-- Formulário de cadastro de candidatos -->
+    <form id="candidatos" action="/candidatos" enctype="multipart/form-data" method="post">
+
+      <!-- Etapa 1: Informações pessoais -->
+      <div class="form-etapa active" id="etapa1">
+        <h2>CADASTRAR</h2>
+        <h3>INFORMAÇÕES PESSOAIS</h3>
+
+        <!-- Campo para nome -->
+        <label>Nome</label>
+        <input type="text" name="nome" id="nome" class="campo-pequeno" placeholder="Digite seu nome..."/>
+
+        <!-- Grupo de campos: data de nascimento e gênero -->
+        <div class="form-group">
+          <div>
+            <label>Data de Nascimento</label>
+            <input type="date" name="nascimento" />
+          </div>
+          <div>
+            <label>Gênero</label>
+            <select name="genero">
+              <option value="">Selecione</option>
+              <option value="masculino">Masculino</option>
+              <option value="feminino">Feminino</option>
+              <option value="outro">Outro</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Grupo de campos: email e telefone -->
+        <div class="form-group">
+          <div>
+            <label>E-mail</label>
+            <input type="email" name="email" placeholder="Digite seu email..."/>
+          </div>
+          <div>
+            <label>Telefone</label>
+            <input type="tel" name="telefone" placeholder="Digite seu telefone..."/>
+          </div>
+        </div>
+
+        <h3>DOCUMENTOS</h3>
+        <!-- Campo para CPF -->
+        <label>CPF</label>
+        <input type="text" name="cpf" class="campo-pequeno" placeholder="Digite seu CPF..." maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')"/>
+
+        <h3>ENDEREÇO</h3>
+        <!-- Grupo de campos de endereço: logradouro, número, bairro -->
+        <div class="form-group">
+          <div>
+            <label>Logradouro</label>
+            <input type="text" name="logradouro" />
+          </div>
+          <div>
+            <label>Número</label>
+            <input type="text" name="numero" />
+          </div>
+          <div>
+            <label>Bairro</label>
+            <input type="text" name="bairro" />
+          </div>
+        </div>
+
+        <!-- Grupo de campos: município, estado, complemento -->
+        <div class="form-group">
+          <div>
+            <label>Município</label>
+            <input type="text" name="municipio" />
+          </div>
+          <div>
+            <label>Estado</label>
+            <select name="estado">
+  <option value="">Selecione</option>
+  <option value="AC">AC</option>
+  <option value="AL">AL</option>
+  <option value="AP">AP</option>
+  <option value="AM">AM</option>
+  <option value="BA">BA</option>
+  <option value="CE">CE</option>
+  <option value="DF">DF</option>
+  <option value="ES">ES</option>
+  <option value="GO">GO</option>
+  <option value="MA">MA</option>
+  <option value="MT">MT</option>
+  <option value="MS">MS</option>
+  <option value="MG">MG</option>
+  <option value="PA">PA</option>
+  <option value="PB">PB</option>
+  <option value="PR">PR</option>
+  <option value="PE">PE</option>
+  <option value="PI">PI</option>
+  <option value="RJ">RJ</option>
+  <option value="RN">RN</option>
+  <option value="RS">RS</option>
+  <option value="RO">RO</option>
+  <option value="RR">RR</option>
+  <option value="SC">SC</option>
+  <option value="SP">SP</option>
+  <option value="SE">SE</option>
+  <option value="TO">TO</option>
+</select>
+
+          </div>
+          <div>
+            <label>Complemento</label>
+            <input type="text" name="complemento" />
+          </div>
+        </div>
+
+        <!-- Botão para ir para a próxima etapa -->
+        <button type="button" onclick="proximaEtapa()">PRÓXIMO</button>
+      </div>
+
+      <!-- Etapa 2: Informações profissionais -->
+      <div class="form-etapa" id="etapa2">
+        <h3 style="text-align: center;">INFORMAÇÕES PROFISSIONAIS</h3>
+
+        <h3>FORMAÇÃO ACADÊMICA</h3>
+        <!-- Grupo de formação acadêmica -->
+        <div class="form-group">
+          <div>
+            <label>Curso</label>
+            <select name="formacao">
+              <option value="">Selecione</option>
+              <option>Análise e Desenvolvimento de Sistemas</option>
+              <option>Ciência da Computação</option>
+              <option>Engenharia da Computação</option>
+              <option>Engenharia de Software</option>
+              <option>Sistemas de Informação</option>
+              <option>Redes de Computadores</option>
+              <option>Tecnologia da Informação</option>
+              <option>Banco de Dados</option>
+              <option>Segurança da Informação</option>
+              <option>Jogos Digitais</option>
+            </select>
+          </div>
+          <div>
+            <label>Situação</label>
+            <select name="situacao_formacao">
+              <option value="">Selecione</option>
+              <option>Concluído</option>
+              <option>Cursando</option>
+              <option>Não Concluído</option>
+            </select>
+          </div>
+          <div>
+            <label>Data de Conclusão (ou prevista)</label>
+            <input type="date" name="conclusao" />
+          </div>
+        </div>
+
+        <!-- Grupo: cargo e pretenção salarial -->
+        <div class="form-group">
+          <div>
+            <label>Cargo</label>
+            <select name="cargo">
+              <option value="">Selecione</option>
+              <option>Assistente Administrativo</option>
+              <option>Auxiliar de Escritório</option>
+              <option>Analista de RH</option>
+              <option>Coordenador de Projetos</option>
+              <option>Gerente Administrativo</option>
+              <option>Atendente Comercial</option>
+              <option>Suporte Técnico</option>
+              <option>Desenvolvedor Web</option>
+              <option>Designer Gráfico</option>
+              <option>Assistente Financeiro</option>
+              <option>Recepcionista</option>
+              <option>Estagiário</option>
+            </select>
+          </div>
+          <div>
+            <label>Pretensão Salarial</label>
+            <input type="text" name="salario" placeholder="Digite sua pretensão salarial..."/>
+          </div>
+        </div>
+
+        <!-- Disponibilidade de horários -->
+        <label>Disponibilidade</label>
+        <select name="disponibilidade" class="campo-pequeno">
+          <option value="">Selecione</option>
+          <option>Manhã</option>
+          <option>Tarde</option>
+          <option>Noite</option>
+          <option>Integral</option>
+          <option>Home Office</option>
+        </select>
+
+        <h3 style="text-align: center; height: 45px;">HABILIDADES</h3>
+        <!-- Campo para habilidades comportamentais e técnicas -->
+        <div class="form-group">
+          <div>
+            <label>Soft Skills</label>
+            <input type="text" name="softSkills" placeholder="Ex: Comunicação, Liderança..." />
+          </div>
+          <div>
+            <label>Hard Skills</label>
+            <input type="text" name="hardSkills" placeholder="Ex: Excel, HTML, SQL..." />
+          </div>
+        </div>
+
+        <!-- Campo de texto sobre o candidato -->
+        <label>Sobre você</label>
+        <textarea name="sobre" placeholder="Fale um pouco sobre você..."></textarea>
+
+        <h3>ANEXAR DOCUMENTOS</h3>
+        <!-- Upload de arquivos -->
+        <div class="form-group">
+          <label class="upload-box">
+            <div class="upload-icon">📎</div>
+            <div class="upload-label">Currículo</div>
+            <div class="upload-sub">Adicionar arquivo</div>
+            <input type="file" name="curriculo" />
+          </label>
+          <label class="upload-box">
+            <div class="upload-icon">📎</div>
+            <div class="upload-label">RG</div>
+            <div class="upload-sub">Adicionar arquivo</div>
+            <input type="file" name="rg_anexo" />
+          </label>
+          <label class="upload-box">
+            <div class="upload-icon">📎</div>
+            <div class="upload-label">Comprovante de Endereço</div>
+            <div class="upload-sub">Adicionar arquivo</div>
+            <input type="file" name="comprovante" />
+          </label>
+        </div>
+
+        <!-- Botão de envio final -->
+        <button type="submit">ENVIAR</button>
+        <button type="button" onclick="voltarEtapa()" style="margin-right: 20px;">VOLTAR</button>
+
+      </div>
+    </form>
+  </div>
+
+  <!-- Script para controlar as etapas -->
+  <script src="cadastro.js"></script>
+</body>
+</html>

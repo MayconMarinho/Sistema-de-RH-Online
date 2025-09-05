@@ -1,0 +1,228 @@
+<!--
+  Este é um documento HTML completo que define a interface da tela do administrador do sistema de RH
+  para visualizar candidatos, aplicar filtros e ver um dashboard com gráficos.
+-->
+
+<!DOCTYPE html> <!-- Define que o documento é um HTML5 -->
+<html lang="pt-br"> <!-- Define o idioma da página como português do Brasil -->
+<head>
+  <meta charset="UTF-8"> <!-- Define a codificação de caracteres para UTF-8 (suporta acentuação) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Garante que a visualização fique boa em dispositivos móveis -->
+  <title>Admin | Painel de Candidatos</title> <!-- Título da aba do navegador -->
+
+  <!-- Importação do Bootstrap para estilos prontos e responsividade -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Importação dos ícones do Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Importação do Chart.js para gerar os gráficos -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Link para o CSS próprio (admin.css) -->
+  <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+  <!-- Barra de navegação superior -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <!-- Logo da empresa -->
+      <a class="navbar-brand" href="http://localhost:3000/principal/principal.html">
+        <img src="logo-reisoffice-novo.png" alt="Logo da Reis Office" style="height: 50px;">
+      </a>
+      <!-- Botão para voltar para a tela principal -->
+      <a class="btn btn-warning" href="http://localhost:3000/principal/principal.html">
+        <i class="bi bi-house-door-fill me-1"></i>Tela Principal
+      </a>
+    </div>
+  </nav>
+
+  <!-- Conteúdo principal da página -->
+  <div class="container-fluid mt-4"> <!-- Espaçamento no topo -->
+    <div class="row"> <!-- Linha principal com duas colunas -->
+
+      <!-- Coluna da tabela de candidatos -->
+      <div class="col-lg-6 mb-4"> <!-- Ocupa metade da tela em telas grandes -->
+        <div class="card"> <!-- Componente visual do Bootstrap -->
+          <div class="card-header"> <!-- Cabeçalho da tabela -->
+            <i class="bi bi-person-lines-fill me-2"></i>Candidatos Cadastrados
+          </div>
+          <div class="card-body">
+            <div class="tabela-scroll"> <!-- Área com rolagem se necessário -->
+              <table class="table table-bordered table-hover"> <!-- Tabela com bordas e efeito hover -->
+                <thead class="table-light"> <!-- Cabeçalho da tabela -->
+                  <tr>
+                    <th>Nome</th>
+                    <th>Cargo Desejado</th>
+                    <th colspan="2" class="align-middle text-center">Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="tabela-candidatos">
+                  <!-- As linhas da tabela serão preenchidas com JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna com filtros e gráficos -->
+      <div class="col-lg-6">
+
+        <!-- Área de filtros -->
+        <div class="filtros mb-3 text-white fw-bold bg-secondary p-3 rounded">
+          <i class="bi bi-funnel-fill me-1"></i>Filtrar Candidatos:
+          <div class="d-flex flex-wrap gap-2 mt-2">
+            <!-- Dropdown de Cargo -->
+            <div class="dropdown">
+              <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownCargo" data-bs-toggle="dropdown" aria-expanded="false">
+                Cargo
+              </button>
+              <ul class="dropdown-menu" id="menuCargo" aria-labelledby="dropdownCargo"></ul>
+            </div>
+
+            <!-- Dropdown de Disponibilidade -->
+            <div class="dropdown">
+              <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownDisp" data-bs-toggle="dropdown" aria-expanded="false">
+                Disponibilidade
+              </button>
+              <ul class="dropdown-menu" id="menuDisp" aria-labelledby="dropdownDisp"></ul>
+            </div>
+
+            <!-- Dropdown de Estado -->
+            <div class="dropdown">
+              <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownEstado" data-bs-toggle="dropdown" aria-expanded="false">
+                Estado
+              </button>
+              <ul class="dropdown-menu" id="menuEstado" aria-labelledby="dropdownEstado"></ul>
+            </div>
+
+            <!-- Botão para remover filtros -->
+            <button class="btn btn-light" onclick="resetarFiltros()">
+              Mostrar Todos
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Texto explicativo -->
+        <div class="texto-intermediario mb-3">
+          <p>Aqui você pode visualizar os dados consolidados dos candidatos cadastrados.</p>
+        </div>
+
+        <!-- Painel com gráficos -->
+        <div class="dashboard-container card p-4 shadow-sm">
+          <h5 class="fw-bold mb-4"><i class="bi bi-bar-chart-fill me-2"></i>Dashboard de Candidaturas</h5>
+
+          <!-- Total de candidatos -->
+          <div class="mb-4">
+            <p class="fs-5">👥 Total de Candidatos: <span id="total-candidatos" class="fw-bold text-primary">0</span></p>
+          </div>
+
+          <div class="row g-3">
+            <!-- Gráfico por Cargo -->
+            <div class="col-md-6">
+              <div class="bg-white border rounded p-3 h-100">
+                <h6 class="fw-bold mb-2 text-secondary"><i class="bi bi-briefcase-fill me-2"></i>Por Cargo</h6>
+                <canvas id="graficoCargo" height="150"></canvas>
+              </div>
+            </div>
+
+            <!-- Gráfico por Disponibilidade -->
+            <div class="col-md-6">
+              <div class="bg-white border rounded p-3 h-100">
+                <h6 class="fw-bold mb-2 text-secondary"><i class="bi bi-clock-fill me-2"></i>Por Disponibilidade</h6>
+                <canvas id="graficoDisponibilidade" height="300"></canvas>
+              </div>
+            </div>
+
+            <!-- Gráfico por Estado -->
+            <div class="col-md-12">
+              <div class="bg-white border rounded p-3 h-100">
+                <h6 class="fw-bold mb-2 text-secondary"><i class="bi bi-geo-alt-fill me-2"></i>Por Estado</h6>
+                <canvas id="graficoEstado" height="130"></canvas>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div> <!-- fim da coluna de gráficos -->
+    </div> <!-- fim da linha principal -->
+  </div> <!-- fim do container principal -->
+
+  <!-- Rodapé da página -->
+  <footer class="mt-4">
+    <div class="container">
+      <p>&copy; 2025 Reis Office - Sistema de RH</p>
+    </div>
+  </footer>
+
+  <!-- Modal de Confirmação de Exclusão -->
+<div class="modal fade" id="modalConfirmarExclusao" tabindex="-1" aria-labelledby="modalConfirmarExclusaoLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-warning">
+      <div class="modal-header bg-warning text-dark">
+        <h5 class="modal-title" id="modalConfirmarExclusaoLabel"><i class="bi bi-exclamation-triangle-fill me-2"></i>Confirmar Exclusão</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja excluir este candidato?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button id="btnConfirmarExclusao" type="button" class="btn btn-danger">Excluir</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Feedback (Sucesso ou Erro) -->
+<div class="modal fade" id="modalFeedback" tabindex="-1" aria-labelledby="modalFeedbackLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-success">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="modalFeedbackLabel"><i class="bi bi-check-circle-fill me-2"></i>Sucesso</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body" id="modalFeedbackBody">
+        Candidato excluído com sucesso.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Modal para exibir o relatório individual do candidato -->
+  <div class="modal fade" id="modalRelatorio" tabindex="-1" aria-labelledby="modalRelatorioLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Cabeçalho do modal -->
+        <div class="modal-header laranja"> <!-- A classe "laranja" pode estar definida no admin.css -->
+          <h5 class="modal-title" id="modalRelatorioLabel">
+            <i class="bi bi-person-vcard-fill me-2"></i>Relatório do Candidato
+          </h5>
+          <!-- Botão para fechar o modal -->
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+        </div>
+
+        <!-- Corpo do modal onde o conteúdo será preenchido com JavaScript -->
+        <div class="modal-body" id="conteudoRelatorio">
+        </div>
+
+        <!-- Rodapé do modal -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Importação dos scripts do Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Importação do script JavaScript próprio da tela de admin -->
+  <script src="admin.js"></script>
+</body>
+</html>
